@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('mentor_skill', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Mentor::class);
+            $table->foreignIdFor(Mentor::class)->unique();
             $table->foreignIdFor(Skill::class);
             $table->timestamps();
         });
