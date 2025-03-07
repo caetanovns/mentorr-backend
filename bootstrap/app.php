@@ -14,7 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->prependToGroup('api', [
             \Illuminate\Session\Middleware\StartSession::class,
-            \App\Http\Middleware\APIAuth::class
+            //\App\Http\Middleware\APIAuth::class
+        ]);
+
+        $middleware->alias([
+            'api_auth' => \App\Http\Middleware\APIAuth::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

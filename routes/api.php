@@ -21,7 +21,7 @@ Route::post('/login', [LoginController::class, 'authenticate'])
     ->withoutMiddleware(APIAuth::class);
 
 
-Route::prefix('/mentors')->group(function () {
+Route::prefix('/mentors')->middleware('api_auth')->group(function () {
     Route::get('/', [MentorController::class, 'index']);
     Route::get('/{mentor}', [MentorController::class, 'show']);
     Route::post('/', [MentorController::class, 'store']);
