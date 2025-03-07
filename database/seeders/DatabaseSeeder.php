@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             SkillSeeder::class
         );
 
-        $amount = 10;
+        $amount = 20;
 
         User::factory($amount)->create();
         Mentor::factory($amount)->create();

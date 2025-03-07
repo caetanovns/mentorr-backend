@@ -19,7 +19,8 @@ class Mentor extends Model
         'biography',
         'price',
         'rating',
-        'user_id'
+        'user_id',
+        'students'
     ];
 
     public function user(): BelongsTo

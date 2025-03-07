@@ -29,7 +29,8 @@ class MentorFactory extends Factory
             'biography' => fake()->paragraphs($nb = 3, $asText = true),
             'price' => fake()->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 50),
             'rating' => fake()->numberBetween($min = 1, $max = 5),
-            'user_id' => fake()->randomElement($diff)
+            'user_id' => fake()->randomElement($diff),
+            'students' => fake()->numberBetween($min=50, $max=1000)
         ];
     }
 }
