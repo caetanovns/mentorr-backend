@@ -11,6 +11,7 @@ Route::get('/user', function (Request $request) {
 Route::get('/mentors', [MentorController::class, 'index']);
 Route::get('/mentors/{mentor}', [MentorController::class, 'show']);
 Route::post('/mentors', [MentorController::class, 'store']);
+Route::delete('/mentors/{mentor}', [MentorController::class, 'delete']);
 //Route::patch('/mentors', []);
-//Route::delete('/mentors', []);
+
 

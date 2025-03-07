@@ -6,6 +6,7 @@ use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MentorController extends Controller
 {
@@ -28,7 +29,7 @@ class MentorController extends Controller
         return response()->json($mentor);
     }
 
-    public function store(Request $request): string
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'position' => 'required',
@@ -40,6 +41,22 @@ class MentorController extends Controller
             'user_id' => 'required'
         ]);
 
-        return 'RETORNO DA API';
+        $mentor = Mentor::create($request->all());
+        $mentor->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'Created',
+            'data' => $mentor
+        ], Response::HTTP_CREATED);
+    }
+
+    public function delete(Mentor $mentor): JsonResponse
+    {
+        $mentor->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Mentor removido com sucesso.'
+        ], Response::HTTP_OK);
     }
 }
