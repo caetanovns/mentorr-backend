@@ -12,10 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->statefulApi();
         $middleware->prependToGroup('api', [
             \Illuminate\Session\Middleware\StartSession::class,
-            \App\Http\Middleware\SanctumCustomAuth::class
+            \App\Http\Middleware\APIAuth::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class SanctumCustomAuth
+class APIAuth
 {
     public function handle(Request $request, Closure $next): Response
     {

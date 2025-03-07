@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MentorController;
-use App\Http\Middleware\SanctumCustomAuth;
+use App\Http\Middleware\APIAuth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +18,7 @@ Route::delete('/mentors/{mentor}', [MentorController::class, 'delete']);
 */
 
 Route::post('/login', [LoginController::class, 'authenticate'])
-    ->withoutMiddleware(SanctumCustomAuth::class);
+    ->withoutMiddleware(APIAuth::class);
 
 
 Route::prefix('/mentors')->group(function () {
