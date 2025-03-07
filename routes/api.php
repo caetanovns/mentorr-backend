@@ -27,3 +27,7 @@ Route::prefix('/mentors')->middleware('api_auth')->group(function () {
     Route::post('/', [MentorController::class, 'store']);
     Route::delete('/{mentor}', [MentorController::class, 'delete']);
 });
+
+Route::get('teste', function (\Illuminate\Http\Request $request) {
+    broadcast(new \App\Events\TestEvent($request->input('texto','')));
+});
