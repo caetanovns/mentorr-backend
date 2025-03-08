@@ -24,6 +24,14 @@ class MentorController extends Controller
     }
     */
 
+    public function enroll(Mentor $mentor): Mentor
+    {
+        $mentor->students += 1;
+        $mentor->save();
+        broadcast(new \App\Events\EnrollEvent($mentor->toJson()));
+        return $mentor;
+    }
+
     public function show(Mentor $mentor): JsonResponse
     {
         return response()->json($mentor);

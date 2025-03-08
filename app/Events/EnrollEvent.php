@@ -8,7 +8,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TestEvent implements ShouldBroadcast
+class EnrollEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -16,14 +16,14 @@ class TestEvent implements ShouldBroadcast
      * Create a new event instance.
      */
 
-    public string $message;
-    public function __construct($message = 'Mensagem Teste')
+    public string $data;
+    public function __construct($data)
     {
-        $this->message = $message;
+        $this->data = $data;
     }
 
     public function broadcastOn(): Channel
     {
-        return new Channel('channel-test');
+        return new Channel('channel-enroll');
     }
 }

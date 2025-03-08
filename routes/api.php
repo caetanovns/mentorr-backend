@@ -26,8 +26,9 @@ Route::prefix('/mentors')->middleware('api_auth')->group(function () {
     Route::get('/{mentor}', [MentorController::class, 'show']);
     Route::post('/', [MentorController::class, 'store']);
     Route::delete('/{mentor}', [MentorController::class, 'delete']);
+    Route::patch('/{mentor}/enroll', [MentorController::class , 'enroll']);
 });
 
-Route::get('teste', function (\Illuminate\Http\Request $request) {
-    broadcast(new \App\Events\TestEvent($request->input('texto','')));
+Route::get('/matricular/{mentor}', function (\Illuminate\Http\Request $request) {
+    broadcast(new \App\Events\EnrollEvent($request->input('texto','')));
 });
