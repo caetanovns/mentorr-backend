@@ -6,6 +6,8 @@ use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class MentorController extends Controller
@@ -34,6 +36,7 @@ class MentorController extends Controller
 
     public function show(Mentor $mentor): JsonResponse
     {
+        Log::info('Consulta do usuário.');
         return response()->json($mentor);
     }
 
@@ -51,6 +54,7 @@ class MentorController extends Controller
 
         $mentor = Mentor::create($request->all());
         $mentor->save();
+        Log::info('Usuário Adicionado.');
         return response()->json([
             'success' => true,
             'message' => 'Created',
@@ -60,6 +64,15 @@ class MentorController extends Controller
 
     public function delete(Mentor $mentor): JsonResponse
     {
+        /*
+        if (! Gate::allows('delete', $mentor)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Usuário não autorizado'
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+        */
+
         $mentor->delete();
 
         return response()->json([
