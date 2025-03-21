@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Mentor::class, MentorPolicy::class);
 
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(5)->by($request->user()->id);
+            return Limit::perMinute(99)->by($request->user()?->id);
             //return Limit::perMinute(5);
         });
     }

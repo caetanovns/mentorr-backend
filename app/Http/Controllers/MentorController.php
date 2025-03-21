@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessMentorReport;
 use App\Models\Mentor;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -78,6 +79,16 @@ class MentorController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Mentor removido com sucesso.'
+        ], Response::HTTP_OK);
+    }
+
+    public function tarefa_muito_longa(Request $request): JsonResponse
+    {
+        ProcessMentorReport::dispatch();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Tarefa longa já respondeu.'
         ], Response::HTTP_OK);
     }
 }

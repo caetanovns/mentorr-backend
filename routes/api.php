@@ -27,10 +27,12 @@ Route::post('/logout', [LoginController::class, 'logout'])
 
 Route::prefix('/mentors')->middleware(['api_auth','throttle:api'])->group(function () {
     Route::get('/', [MentorController::class, 'index']);
+    Route::get('/tarefa_async', [MentorController::class, 'tarefa_muito_longa']);
     Route::get('/{mentor}', [MentorController::class, 'show']);
     Route::post('/', [MentorController::class, 'store']);
     Route::delete('/{mentor}', [MentorController::class, 'delete'])->middleware('can:delete,mentor');
     Route::patch('/{mentor}/enroll', [MentorController::class, 'enroll']);
+
 });
 
 Route::get('/matricular/{mentor}', function (\Illuminate\Http\Request $request) {
