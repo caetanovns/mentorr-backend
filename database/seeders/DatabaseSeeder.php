@@ -7,6 +7,7 @@ use App\Models\Skill;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,5 +24,13 @@ class DatabaseSeeder extends Seeder
 
         User::factory($amount)->create();
         Mentor::factory($amount)->create();
+
+        User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'devops',
+                'password' => Hash::make('devops'),
+            ]
+        );
     }
 }
