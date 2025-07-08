@@ -5,7 +5,17 @@ pipeline {
         stage("Build"){
             steps {
                 script {
-                    docker.build("mentorr-backend:${env.BUILD_NUMBER}")
+                    dockerapp = docker.build("mentorr-backend:${env.BUILD_NUMBER}")
+                }
+            }
+        }
+
+        stage("Registry"){
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub'){
+                        dockerapp.push("${env.BUILD_NUMBER}")
+                    }
                 }
             }
         }
