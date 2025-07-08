@@ -1,10 +1,28 @@
 pipeline {
     agent any
 
+    parameters {
+            string(name: 'TAG', defaultValue: '', description: 'Digite ou escolha uma tag')
+    }
+
     stages {
-        stage("Inicial"){
+        stage('Checkout') {
             steps {
-                echo "Iniciando a pipeline"
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "refs/tags/${params.TAG}"]],
+                    userRemoteConfigs: [[
+                        url: 'git@github.com:caetanovns/mentorr-backend.git',
+                        credentialsId: 'f620249a-a3aa-48a8-b6cb-5bafe983f77a'
+                    ]]
+                ])
+            }
+        }
+        stage("Build"){
+            steps {
+                script {
+
+                }
             }
         }
     }
