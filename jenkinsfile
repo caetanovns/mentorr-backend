@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+     environment {
+        DOCKERHUB_REPO = "caetanodevops/mentorr-backend"
+        IMAGE_TAG = "${env.BUILD_NUMBER}"
+     }
     stages {
         stage("Build"){
             steps {
@@ -13,8 +16,9 @@ pipeline {
         stage("Registry"){
             steps {
                 script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub'){
-                        dockerapp.push()
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
+                        dockerImage.push("${IMAGE_TAG}")
+                        dockerImage.push("latest") // opcional: push da tag latest também
                     }
                 }
             }
