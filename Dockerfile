@@ -34,7 +34,7 @@ RUN mkdir -p database && touch database/database.sqlite \
     && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-EXPOSE 80
+EXPOSE 8000
 
 # Copia o script de entrada
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
