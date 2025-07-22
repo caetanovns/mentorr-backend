@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         RANCHER_URL = 'https://localhost'
-        API_TOKEN: credentials('rancher-api-token')
+        API_TOKEN = credentials('rancher-api-token')
         PROJECT_ID = 'local'
         WORKLOAD = 'deployment:default:mentorr-backend'
         CONTAINER = 'mentorr-backend'
