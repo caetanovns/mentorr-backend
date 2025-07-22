@@ -1,6 +1,15 @@
 pipeline {
     agent any
 
+    environment {
+        RANCHER_URL = 'https://localhost'
+        API_TOKEN: credentials('rancher-api-token')
+        PROJECT_ID = 'local'
+        WORKLOAD = 'deployment:default:mentorr-backend'
+        CONTAINER = 'mentorr-backend'
+        IMAGE = "caetanodevops/mentorr-backend:${env.BUILD_NUMBER}"
+    }
+
     stages {
         stage("Build"){
             steps {
@@ -17,6 +26,23 @@ pipeline {
                         dockerapp.push()
                     }
                 }
+            }
+        }
+
+        stage("Deploy"){
+            steps {
+                sh """
+                curl -k -u "${API_TOKEN}" \\
+                      -X PUT "${RANCHER_URL}/v3/project/${PROJECT_ID}/workloads/${WORKLOAD}" \\
+                      -H 'Content-Type: application/json' \\
+                      -d '{
+                        "type": "workload",
+                        "containers": [{
+                            "name": "${CONTAINER}",
+                            "image": "${IMAGE}"
+                        }]
+                      }'
+                """
             }
         }
     }
