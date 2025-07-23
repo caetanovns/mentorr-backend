@@ -1,37 +1,12 @@
 pipeline {
     agent any
 
-    environment {
-        DOCKER_CONTAINER = 'rancher'
-        WORKLOAD = 'mentorr-backend'
-        CONTAINER = 'mentorr-backend'
-        IMAGE = "caetanodevops/mentorr-backend:${env.BUILD_NUMBER}"
-    }
-
     stages {
         stage("Build"){
             steps {
                 script {
                     dockerapp = docker.build("caetanodevops/mentorr-backend:${env.BUILD_NUMBER}")
                 }
-            }
-        }
-
-        stage("Registry"){
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub'){
-                        dockerapp.push()
-                    }
-                }
-            }
-        }
-
-        stage("Deploy"){
-            steps {
-                sh """
-                    docker exec ${DOCKER_CONTAINER} kubectl set image deployment/${WORKLOAD} ${CONTAINER}=${IMAGE} -n default
-                """
             }
         }
     }
