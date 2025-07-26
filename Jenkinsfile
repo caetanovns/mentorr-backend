@@ -2,9 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello World'){
+        stage('BUILD'){
             steps {
-                echo 'Hello World'
+                script{
+                    docker.build("caetanodevops/mentorr-backend-live:${env.BUILD_NUMBER}")
+                }
             }
         }
     }
