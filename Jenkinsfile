@@ -5,7 +5,7 @@ pipeline {
         DOCKER_CONTAINER = 'cool_solomon'
         WORKLOAD = 'mentorr-backend-live'
         CONTAINER = 'mentorr-backend-live'
-        IMAGE = 'caetanodevops/mentorr-backend-live:${env.BUILD_NUMBER}'
+        IMAGE = "caetanodevops/mentorr-backend-live:${env.BUILD_NUMBER}"
     }
 
     stages {
